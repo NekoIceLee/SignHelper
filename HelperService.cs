@@ -62,8 +62,11 @@ namespace SignHelper
                                                                                    let k = ct.Split('=').First()
                                                                                    let v = ct.Split('=').Last()
                                                                                    select new KeyValuePair<string, string>(k,v));
-            Console.WriteLine(valuePairs["id"]);
-
+            if (valuePairs.ContainsKey("id"))
+            {
+                var id = valuePairs["id"];
+            }
+            
             streamwriter.WriteLine($"{DateTime.Now:G}");
             streamwriter.Flush();
         }

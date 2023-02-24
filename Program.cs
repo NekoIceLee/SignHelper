@@ -1,9 +1,25 @@
 ﻿// See https://aka.ms/new-console-template for more information
+
+
+using Microsoft.Data.Sqlite;
+
 Console.WriteLine("Hello, World!");
 
-if (File.Exists("prefixes.txt") == false)
+if (File.Exists("data.db") == false)
 {
-    File.Create("prefixes.txt").Close();
+    using (var connection = new SqliteConnection("Data Source=data.db"))
+    {
+        connection.Open();
+        var command = connection.CreateCommand();
+        command.CommandText =
+            @"
+            CREATE TABLE userLog(
+                id TEXT NOT NULL,
+                time TEXT NOT NULL
+            );
+            ";
+        command.ExecuteNonQuery();
+    }
 }
 
 
