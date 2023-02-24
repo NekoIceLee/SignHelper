@@ -4,7 +4,7 @@
 FROM mcr.microsoft.com/dotnet/runtime:7.0 AS base
 WORKDIR /app
 
-EXPOSE 80/tcp
+EXPOSE 3344/tcp
 
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src

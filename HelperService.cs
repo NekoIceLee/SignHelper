@@ -11,12 +11,11 @@ namespace SignHelper
     public class HelperService
     {
         HttpListener _listener;
-        public HelperService(int port)
+        public HelperService(params string[] prefixes)
         {
             _listener = new HttpListener();
             _listener.AuthenticationSchemes = AuthenticationSchemes.Anonymous;
-            _listener.Prefixes.Add("http://127.0.0.1:80/Sign/");
-            
+            _listener.Prefixes.Add("http://+:80/");
         }
         public void Init()
         {
