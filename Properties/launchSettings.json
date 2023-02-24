@@ -1,0 +1,11 @@
+{
+  "profiles": {
+    "SignHelper": {
+      "commandName": "Project"
+    },
+    "Docker": {
+      "commandName": "Docker",
+      "httpPort": 80
+    }
+  }
+}
