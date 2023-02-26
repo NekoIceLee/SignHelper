@@ -77,21 +77,22 @@ namespace SignHelper
         {
             var resp = context.Response;
             var sw = new StreamWriter(resp.OutputStream);
-            var reqreader = new StreamReader(context.Request.InputStream, Encoding.UTF8);
-            var cont = reqreader.ReadLine();
-            cont ??= "";
-            Console.WriteLine(cont);
-            Dictionary<string, string> valuePairs = new Dictionary<string, string>(from ct in cont.Split('&')
-                                                                                   where string.IsNullOrEmpty(ct) == false
-                                                                                   let k = ct.Split('=').First()
-                                                                                   let v = ct.Split('=').Last()
-                                                                                   select new KeyValuePair<string, string>(k, v));
-            if (valuePairs.ContainsKey("id"))
+            var Qstrings = context.Request.QueryString;
+            try
             {
-                var id = valuePairs["id"];
+                Console.WriteLine(context.Request.QueryString["id"]);
+                var id = Qstrings["id"];
+                if (id is null)
+                {
+                    return;
+                }
                 var signdata = SignLogic.GetTodaySign(MySQLAPI.GetTodaySignData(id));
                 sw.WriteLine(signdata);
                 sw.Flush();
+            }
+            catch 
+            {
+
             }
         }
     }
