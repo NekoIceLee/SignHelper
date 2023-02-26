@@ -4,20 +4,9 @@
 
 Console.WriteLine("Hello, World!");
 
-SignHelper.HelperService service = new SignHelper.HelperService(getPrefix().ToArray());
+SignHelper.HelperService service = new SignHelper.HelperService();
 service.Init();
 while (true)
 {
 
-}
-
-IEnumerable<string> getPrefix()
-{
-    var f = new StreamReader(File.OpenRead("prefixes.txt"));
-    var line = f.ReadLine();
-    while (line is not null)
-    {
-        yield return line;
-        line = f.ReadLine();
-    }
 }

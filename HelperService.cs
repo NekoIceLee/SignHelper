@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Http.Headers;
 using System.Net.Security;
+using System.Net.WebSockets;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -11,7 +14,7 @@ namespace SignHelper
     public class HelperService
     {
         HttpListener _listener;
-        public HelperService(params string[] prefixes)
+        public HelperService()
         {
             _listener = new HttpListener();
             _listener.AuthenticationSchemes = AuthenticationSchemes.Anonymous;
@@ -20,7 +23,7 @@ namespace SignHelper
         public void Init()
         {
             _listener.Start();
-            GetNewContext();
+            Task.Run(GetNewContext);
         }
         public void GetNewContext()
         {
@@ -74,8 +77,22 @@ namespace SignHelper
         {
             var resp = context.Response;
             var sw = new StreamWriter(resp.OutputStream);
-            sw.WriteLine("Hello!");
-            sw.Flush();
+            var reqreader = new StreamReader(context.Request.InputStream, Encoding.UTF8);
+            var cont = reqreader.ReadLine();
+            cont ??= "";
+            Console.WriteLine(cont);
+            Dictionary<string, string> valuePairs = new Dictionary<string, string>(from ct in cont.Split('&')
+                                                                                   where string.IsNullOrEmpty(ct) == false
+                                                                                   let k = ct.Split('=').First()
+                                                                                   let v = ct.Split('=').Last()
+                                                                                   select new KeyValuePair<string, string>(k, v));
+            if (valuePairs.ContainsKey("id"))
+            {
+                var id = valuePairs["id"];
+                var signdata = SignLogic.GetTodaySign(MySQLAPI.GetTodaySignData(id));
+                sw.WriteLine(signdata);
+                sw.Flush();
+            }
         }
     }
 }

@@ -26,11 +26,22 @@ public class MySQLAPI
         _connection.Open();
     }
 
-    static object AddSignData(string username)
+    public static object AddSignData(string username)
     {
         var command = _connection.CreateCommand();
         command.CommandText = $"insert into signlog (uid, time) values ('{username}', '{DateTime.Now}')";
         var result = command.ExecuteScalar();
         return result;
+    }
+    public static IEnumerable<DateTime> GetTodaySignData(string username)
+    {
+        var command = _connection.CreateCommand();
+        command.CommandText = $"select time from signlog where uid='{username}' and DATE(time) = '{DateTime.Now:d}'";
+        var reader = command.ExecuteReader();
+        while (reader.Read())
+        {
+            yield return (DateTime)reader["time"];
+        }
+        yield break;
     }
 }
