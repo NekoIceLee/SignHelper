@@ -47,7 +47,7 @@ public class MySQLAPI
     public static IEnumerable<DateTime> GetTodaySignData(string username)
     {
         var command = _connection.CreateCommand();
-        command.CommandText = $"select time from signdata where user='{username}' and DATE(time) = '{DateTime.Now:yyyy-MM-dd HH:mm:ss}';";
+        command.CommandText = $"select time from signdata where user='{username}' and DATE(time) = '{DateTime.Now:yyyy-MM-dd}';";
         using var reader = command.ExecuteReader();
         while (reader.Read())
         {
