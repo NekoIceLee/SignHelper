@@ -73,7 +73,8 @@ namespace SignHelper
             var resp = context.Response;
             var sw = new StreamWriter(resp.OutputStream);
             var Qstrings = context.Request.QueryString;
-            
+            try
+            {
                 Console.WriteLine(context.Request.QueryString["id"]);
                 var id = Qstrings["id"];
                 if (id is null)
@@ -83,6 +84,12 @@ namespace SignHelper
                 var signdata = SignLogic.GetTodaySign(MySQLAPI.GetTodaySignData(id));
                 sw.WriteLine(signdata);
                 sw.Flush();
+            }
+                catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.StackTrace);
+            }
             
         }
     }
