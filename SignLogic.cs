@@ -38,5 +38,18 @@ namespace SignHelper
                 NightOff = times.Any(t => t.Hour >= 21),
             };
         }
+        public static string GetSignTypeStr(DateTime times)
+        {
+            return times.Hour switch
+            {
+                var h when h <= 8 => "MorningUp",
+                12 => "MorningOff",
+                13 => "NoonUp",
+                var h when h == 18 && times.Minute < 15 => "NoonOff",
+                var h when h == 18 && times.Minute >= 15 => "NoonOff",
+                var h when h >= 21 => "NightOff",
+                _ => "",
+            };
+        }
     }
 }

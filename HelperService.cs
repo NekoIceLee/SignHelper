@@ -55,23 +55,18 @@ namespace SignHelper
         {
             var req = context.Request;
             var resp = context.Response;
+            var Qstrings = context.Request.QueryString;
             var streamreader = new StreamReader(req.InputStream, Encoding.UTF8);
             var streamwriter = new StreamWriter(resp.OutputStream, Encoding.UTF8);
-            var cont = streamreader.ReadLine();
-            cont ??= "";
-            Console.WriteLine(cont);
-            Dictionary<string, string> valuePairs = new Dictionary<string, string>(from ct in cont.Split('&') 
-                                                                                   where string.IsNullOrEmpty(ct) == false
-                                                                                   let k = ct.Split('=').First()
-                                                                                   let v = ct.Split('=').Last()
-                                                                                   select new KeyValuePair<string, string>(k,v));
-            if (valuePairs.ContainsKey("id"))
-            {
-                var id = valuePairs["id"];
-            }
             
-            streamwriter.WriteLine($"{DateTime.Now:G}");
-            streamwriter.Flush();
+            var id = Qstrings["id"];
+            var time = Qstrings["time"];
+            if (id is not null && time is not null)
+            {
+                MySQLAPI.AddSignData(id, DateTime.Parse(time));
+                streamwriter.WriteLine(time);
+                streamwriter.Flush();
+            }
         }
         public void OnGet(HttpListenerContext context)
         {
