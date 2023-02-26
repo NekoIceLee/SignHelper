@@ -36,9 +36,10 @@ namespace SignHelper
         }
         static SignStat caculateStat(DateTime time, TimeSpan start, TimeSpan late, TimeSpan end)
         {
+            Console.WriteLine(time);
             if (time == default)
             {
-                var nowtime = DateTime.Now.TimeOfDay;
+                var nowtime = DateTime.UtcNow.AddHours(8).TimeOfDay;
                 if (nowtime < late)
                 {
                     return SignStat.Later;
