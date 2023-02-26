@@ -12,9 +12,5 @@ MySQLAPI.Init();
 service.Init();
 while (!exit)
 {
-    var cmd = Console.ReadLine();
-    if (cmd == "exit")
-    {
-        exit = true;
-    }
+    Thread.Sleep(1);
 }
