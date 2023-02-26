@@ -31,7 +31,7 @@ namespace SignHelper
                     $"\"NoonUp\":\"{NoonUp}\"," +
                     $"\"NoonOff\":\"{NoonOff}\"," +
                     $"\"NightUp\":\"{NightUp}\"," +
-                    $"\"NightOff\":\"{NightOff}\",}}";
+                    $"\"NightOff\":\"{NightOff}\"}}";
             }
         }
         static SignStat caculateStat(DateTime time, TimeSpan start, TimeSpan late, TimeSpan end)
