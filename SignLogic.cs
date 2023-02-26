@@ -81,8 +81,8 @@ namespace SignHelper
             var (noonoff, nightup) = SplitDatetime(timecache.Where(t => t.Hour == 18));
             return new TodaySign
             {
-                MoringUp = caculateStat(timecache.FirstOrDefault(t => t.Hour <= 8), DateTime.Parse("07:00").TimeOfDay, DateTime.Parse("08:30").TimeOfDay, DateTime.Parse("09:00").TimeOfDay),
-                MoringOff = caculateStat(morningoff, DateTime.Parse("12:00").TimeOfDay, DateTime.Parse("13:25").TimeOfDay, DateTime.Parse("13:30").TimeOfDay),
+                MorningUp = caculateStat(timecache.FirstOrDefault(t => t.Hour <= 8), DateTime.Parse("07:00").TimeOfDay, DateTime.Parse("08:30").TimeOfDay, DateTime.Parse("09:00").TimeOfDay),
+                MorningOff = caculateStat(morningoff, DateTime.Parse("12:00").TimeOfDay, DateTime.Parse("13:25").TimeOfDay, DateTime.Parse("13:30").TimeOfDay),
                 NoonUp = caculateStat(noonup, DateTime.Parse("13:00").TimeOfDay, DateTime.Parse("13:30").TimeOfDay, DateTime.Parse("14:00").TimeOfDay),
                 NoonOff = caculateStat(noonoff, DateTime.Parse("17:59").TimeOfDay, DateTime.Parse("18:25").TimeOfDay, DateTime.Parse("18:30").TimeOfDay),
                 NightUp = caculateStat(nightup, DateTime.Parse("18:00").TimeOfDay, DateTime.Parse("18:30").TimeOfDay, DateTime.Parse("19:00").TimeOfDay),
