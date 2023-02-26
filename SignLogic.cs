@@ -18,16 +18,16 @@ namespace SignHelper
         }
         public class TodaySign
         {
-            public required SignStat MoringUp { get; init; }
-            public required SignStat MoringOff { get; init; }
+            public required SignStat MorningUp { get; init; }
+            public required SignStat MorningOff { get; init; }
             public required SignStat NoonUp { get; init; }
             public required SignStat NoonOff { get; init; }
             public required SignStat NightUp { get; init; }
             public required SignStat NightOff { get; init; }
             public override string ToString()
             {
-                return $"{{\"MorningUp\":\"{MoringUp}\"," +
-                    $"\"MoringOff\":\"{MoringOff}\"," +
+                return $"{{\"MorningUp\":\"{MorningUp}\"," +
+                    $"\"MorningOff\":\"{MorningOff}\"," +
                     $"\"NoonUp\":\"{NoonUp}\"," +
                     $"\"NoonOff\":\"{NoonOff}\"," +
                     $"\"NightUp\":\"{NightUp}\"," +
