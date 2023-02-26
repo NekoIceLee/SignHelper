@@ -21,7 +21,7 @@ public class MySQLAPI
             Port = 3306,
             UserID = "root",
             Password = "licanxi",
-            Database = "signdata",
+            Database = "sign",
         };
 #else
         var conbuilder = new MySqlConnectionStringBuilder()
@@ -30,7 +30,7 @@ public class MySQLAPI
             Port = 3306,
             UserID = "root",
             Password = "licanxi",
-            Database = "signdata",
+            Database = "sign",
         };
 #endif
         _connection.ConnectionString = conbuilder.ConnectionString;
@@ -40,14 +40,14 @@ public class MySQLAPI
     public static object AddSignData(string username, DateTime time)
     {
         var command = _connection.CreateCommand();
-        command.CommandText = $"insert into signlog (uid, time) values ('{username}', '{time}');";
+        command.CommandText = $"insert into signdata (user, time) values ('{username}', '{time}');";
         var result = command.ExecuteScalar();
         return result;
     }
     public static IEnumerable<DateTime> GetTodaySignData(string username)
     {
         var command = _connection.CreateCommand();
-        command.CommandText = $"select time from signlog where uid='{username}' and DATE(time) = '{DateTime.Now:d}';";
+        command.CommandText = $"select time from signdata where user='{username}' and DATE(time) = '{DateTime.Now:d}';";
         using var reader = command.ExecuteReader();
         while (reader.Read())
         {
