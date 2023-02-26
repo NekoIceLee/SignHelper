@@ -86,7 +86,7 @@ namespace SignHelper
                 NoonUp = caculateStat(noonup, DateTime.Parse("13:00").TimeOfDay, DateTime.Parse("13:30").TimeOfDay, DateTime.Parse("14:00").TimeOfDay),
                 NoonOff = caculateStat(noonoff, DateTime.Parse("17:59").TimeOfDay, DateTime.Parse("18:25").TimeOfDay, DateTime.Parse("18:30").TimeOfDay),
                 NightUp = caculateStat(nightup, DateTime.Parse("18:00").TimeOfDay, DateTime.Parse("18:30").TimeOfDay, DateTime.Parse("19:00").TimeOfDay),
-                NightOff = caculateStat(timecache.FirstOrDefault(t => t.Hour >= 21), DateTime.Parse("20:59").TimeOfDay, DateTime.Parse("21:00").TimeOfDay, DateTime.Parse("23:59").TimeOfDay),
+                NightOff = caculateStat(timecache.FirstOrDefault(t => t.Hour >= 21), DateTime.Parse("20:59").TimeOfDay, DateTime.Parse("23:59").TimeOfDay, DateTime.Parse("23:59").TimeOfDay),
             };
         }
         public static string GetSignTypeStr(DateTime times)
