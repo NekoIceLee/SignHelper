@@ -26,7 +26,7 @@ public class MySQLAPI
 #else
         var conbuilder = new MySqlConnectionStringBuilder()
         {
-            Server = "localhost",
+            Server = "172.17.49.119",
             Port = 3306,
             UserID = "root",
             Password = "licanxi",
