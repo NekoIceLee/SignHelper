@@ -49,6 +49,7 @@ namespace SignHelper
                 resp.ContentEncoding = Encoding.UTF8;
                 resp.StatusCode = 200;
                 resp.Close();
+                GC.Collect();
             }
         }
         public void OnPost(HttpListenerContext context)
