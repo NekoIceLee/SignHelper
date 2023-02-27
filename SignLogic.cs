@@ -57,6 +57,10 @@ namespace SignHelper
         {
             if (times.Count() < 2)
             {
+                if (times.Count() == 1)
+                {
+                    return (times.First(), default);
+                }
                 return (default, default);
             }
             var timelist = times.OrderBy(t => t.Ticks).ToList();
@@ -72,11 +76,15 @@ namespace SignHelper
                 last = t;
                 break;
             }
+            if (last - first < new TimeSpan(0, 10, 0))
+            {
+                return (first, default);
+            }
             return (first, last);
         }
         public static TodaySign GetTodaySign(IEnumerable<DateTime> times)
         {
-            var timecache = times.ToArray();
+            var timecache = times.OrderBy(t => t.Ticks).ToArray();
             var (morningoff, noonup) = SplitDatetime(timecache.Where(t => t.Hour == 12 || t.Hour == 13));
             var (noonoff, nightup) = SplitDatetime(timecache.Where(t => t.Hour == 18));
             return new TodaySign
